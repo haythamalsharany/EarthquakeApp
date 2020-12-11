@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 class EarthquakeFetchr {
-    lateinit var eathquakapi: EarthquakeApi
+     var eathquakapi: EarthquakeApi
     lateinit var earthquakeApi: EarthquakeApi
 
     init {
