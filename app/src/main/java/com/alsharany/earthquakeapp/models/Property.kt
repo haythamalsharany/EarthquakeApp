@@ -1,8 +1,8 @@
-package com.alsharany.earthquakeapp
+package com.alsharany.earthquakeapp.models
 
 import com.google.gson.annotations.SerializedName
 
-data class Pro(
+data class Property(
 
     @SerializedName("mag")
     var mag: Double = 0.0,
@@ -12,6 +12,7 @@ data class Pro(
     var time: Long = 3,
     @SerializedName("place")
     var place: String = "",
+
 
 //    var coordinates:Earthcoordinates
 

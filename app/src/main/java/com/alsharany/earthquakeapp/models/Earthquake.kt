@@ -1,12 +1,12 @@
-package com.alsharany.earthquakeapp
+package com.alsharany.earthquakeapp.models
 
 
 import com.google.gson.annotations.SerializedName
 
 data class Earthquake(
     @SerializedName("properties")
-    var pro: Pro = Pro(),
+    var property: Property = Property(),
 
     @SerializedName("geometry")
-    var geo: Geo = Geo()
+    var geometric: Geometric = Geometric()
 )

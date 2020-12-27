@@ -1,8 +1,9 @@
-package com.alsharany.earthquakeapp
+package com.alsharany.earthquakeapp.models
+
 
 import com.google.gson.annotations.SerializedName
 
-data class ErthResponse(
+data class EarthquakeResponse(
     @SerializedName("features")
     var erthR: List<Earthquake>
 )

@@ -2,13 +2,14 @@ package com.alsharany.earthquakeapp
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import com.alsharany.earthquakeapp.models.Earthquake
 
-class EarthViewModel : ViewModel() {
+class EarthquakeViewModel : ViewModel() {
 
     val earthquakeLiveData: LiveData<List<Earthquake>>
 
     init {
-        earthquakeLiveData = EarthquakeFetchr().feachData()
+        earthquakeLiveData = EarthquakeRepositry().feachData()
     }
 
 }

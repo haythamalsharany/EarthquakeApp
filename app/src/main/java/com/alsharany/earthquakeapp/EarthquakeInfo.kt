@@ -3,7 +3,6 @@ package com.alsharany.earthquakeapp
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,27 +14,24 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.alsharany.earthquakeapp.models.Earthquake
 import java.math.RoundingMode
 import java.util.*
 
 
 class EarthquakeInfo : Fragment() {
-    private lateinit var earthViewModel: EarthViewModel
+    private lateinit var earthquakeViewModel: EarthquakeViewModel
     private lateinit var earthquakeRecyclerView: RecyclerView
     private lateinit var progressBar: ProgressBar
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // requireActivity().actionBar?.setTitle("Earthquake Report")
 
-        earthViewModel =
-            ViewModelProviders.of(this).get(EarthViewModel::class.java)
+        earthquakeViewModel =
+            ViewModelProviders.of(this).get(EarthquakeViewModel::class.java)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        var e = EarthquakeFetchr()
-        val earthquakeLiveData = e.feachData()
-        earthquakeLiveData.observe(this, Observer {
-            Log.d("test", "Response received: ${it}")
+        earthquakeViewModel.earthquakeLiveData.observe(this, Observer {
             earthquakeRecyclerView.adapter = EarthquakeAdapter(it)
         })
     }
@@ -72,20 +68,18 @@ class EarthquakeInfo : Fragment() {
         var earthquake = Earthquake()
         fun bind(earthquake: Earthquake) {
             this.earthquake = earthquake
-            setMagButtonShape(this.earthquake.pro.mag)
-            if (this.earthquake.pro.title.contains(" of ".toRegex())) {
-                destanceTextView.text = this.earthquake.pro.title.split("of")[0] + "of"
-                titleTextView.text = this.earthquake.pro.title.split("of")[1]
+            setMagButtonShape(this.earthquake.property.mag)
+            if (this.earthquake.property.title.contains(" of ".toRegex())) {
+                destanceTextView.text = this.earthquake.property.title.split("of")[0] + "of"
+                titleTextView.text = this.earthquake.property.title.split("of")[1]
             } else {
-                titleTextView.text = this.earthquake.pro.title
-                destanceTextView.text = this.earthquake.pro.place
+                titleTextView.text = this.earthquake.property.title
+                destanceTextView.text = this.earthquake.property.place
 
             }
-            // titleTextView.text=this.earthquake.pro.title
-
-            dateTextView.text = converToDate(earthquake.pro.time)
-            timeTextView.text = converToTime(earthquake.pro.time)
-            setCoordinates(this.earthquake.geo.geos)
+            dateTextView.text = converToDate(earthquake.property.time)
+            timeTextView.text = converToTime(earthquake.property.time)
+            setCoordinates(this.earthquake.geometric.geos)
         }
 
         fun setMagButtonShape(mag: Double) {
@@ -137,7 +131,6 @@ class EarthquakeInfo : Fragment() {
             requireActivity().startActivity(intent)
 
         }
-
 
     }
     inner class EarthquakeAdapter(var earthquakes: List<Earthquake>) :
