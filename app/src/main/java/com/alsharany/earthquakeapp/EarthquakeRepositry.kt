@@ -33,7 +33,7 @@ class EarthquakeRepositry {
                 response: Response<EarthquakeResponse>
             ) {
                 var erthResponse = response.body()
-                var eathquakes = erthResponse?.erthR
+                var eathquakes = erthResponse?.erthResponse
                     ?: mutableListOf()
                 responseLiveData.value = eathquakes
             }
